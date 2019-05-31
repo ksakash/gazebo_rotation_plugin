@@ -15,11 +15,19 @@ public:
         this->model = _parent;
 
         this->base_link = this->model->GetLink("base_link");
+        if (this->base_link == NULL) {
+            std::cout << "The link name is not base_link" << std::endl;
+            this->base_link = this->model->GetLink("Buoy_Akash/base_link");
+        }
         if (this->base_link == NULL)
         {
             std::vector<physics::LinkPtr> links = this->model->GetLinks();
             for (int i = 0; i < links.size(); i++)
                 std::cout << "Name of link no. " << i << ": " << links[0]->GetName() << std::endl;
+            return;
+        }
+        else {
+            std::cout << "The link name is Buoy_Akash/base_link" << std::endl;
         }
 
         // Listen to the update event. This event is broadcast every
@@ -33,7 +41,7 @@ public:
     void OnUpdate()
     {
         // Apply a small linear velocity to the model.
-        this->model->SetAngularVel(ignition::math::Vector3d(0, 0, 0.1));
+        this->base_link->SetAngularVel(ignition::math::Vector3d(0, 0, 0.1));
     }
 
     // Pointer to the model

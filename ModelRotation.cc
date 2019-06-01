@@ -29,6 +29,7 @@ public:
         else {
             std::cout << "The link name is Buoy_Akash/base_link" << std::endl;
         }
+        this->model->SetGravityMode(false);
 
         // Listen to the update event. This event is broadcast every
         // simulation iteration.
@@ -41,7 +42,7 @@ public:
     void OnUpdate()
     {
         // Apply a small linear velocity to the model.
-        this->base_link->SetAngularVel(ignition::math::Vector3d(0, 0, 0.1));
+        this->base_link->SetAngularVel(ignition::math::Vector3d(0, 0, 1));
     }
 
     // Pointer to the model
